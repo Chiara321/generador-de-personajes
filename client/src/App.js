@@ -21,9 +21,11 @@ const App = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [isLoading, setLoading] = useState(false); // Estado de carga
 
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
   const generarPersonaje = async ({ generoSexo, generoLiterario }) => {
     try {
-      const response = await fetch('http://localhost:3001/generar-personaje', {
+      const response = await fetch(`${BACKEND_URL}/generar-personaje`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,16 +46,12 @@ const App = () => {
       <MainSection onGenerate={generarPersonaje} />
       <ResultsContainer>
         <ResultCard nombre={personaje.nombre} descripcion={personaje.descripcion} />
-        <ImageGenerator setImageUrl={setImageUrl} setLoading={setLoading} /> {/* Actualizado */}
+        <ImageGenerator setImageUrl={setImageUrl} setLoading={setLoading} />
       </ResultsContainer>
-      <ImageDisplay imageUrl={imageUrl} isLoading={isLoading} /> {/* Mostrar el estado de carga y la imagen */}
+      <ImageDisplay imageUrl={imageUrl} isLoading={isLoading} />
       <Footer />
     </>
   );
 };
 
 export default App;
-
-
-
-
